@@ -1,0 +1,69 @@
+import React, { memo } from 'react';
+import { motion } from 'framer-motion';
+import { Trophy } from 'lucide-react';
+
+const TopPerformersCard = ({ performers = [] }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.4 }}
+      className="bg-white dark:bg-gray-800 rounded-[24px] border border-slate-100 dark:border-gray-700 p-6 shadow-[0_10px_40px_rgba(0,0,0,0.06)] flex flex-col h-full"
+    >
+      <div className="flex items-center justify-between mb-6">
+        <h3 className="text-lg font-bold text-slate-900 dark:text-white">Top Performers</h3>
+        <Trophy className="w-5 h-5 text-[#EAB308] drop-shadow-sm" />
+      </div>
+      
+      <div className="flex-grow flex flex-col justify-center">
+        {performers.length > 0 ? (
+          <div className="space-y-4">
+            {performers.map((performer, index) => {
+              let badgeBg = '#DBEAFE';
+              let badgeText = '#2563EB';
+              let rowBg = 'bg-white dark:bg-gray-800 hover:bg-slate-50 dark:hover:bg-gray-700 dark:bg-gray-900';
+              
+              if (index === 0) {
+                badgeBg = '#EAB308';
+                badgeText = '#FFFFFF';
+                rowBg = 'bg-yellow-50/50 hover:bg-yellow-50';
+              } else if (index === 1) {
+                badgeBg = '#94A3B8';
+                badgeText = '#FFFFFF';
+                rowBg = 'bg-slate-50/50 hover:bg-slate-50 dark:hover:bg-gray-700 dark:bg-gray-900';
+              } else if (index === 2) {
+                badgeBg = '#B45309';
+                badgeText = '#FFFFFF';
+                rowBg = 'bg-amber-50/30 hover:bg-amber-50/50';
+              }
+
+              return (
+                <div key={index} className={`flex items-center justify-between p-3 rounded-xl border border-slate-100 dark:border-gray-700 transition-colors ${rowBg}`}>
+                  <div className="flex items-center space-x-4">
+                    <div 
+                      className="w-9 h-9 rounded-full flex items-center justify-center font-extrabold text-sm shadow-sm"
+                      style={{ backgroundColor: badgeBg, color: badgeText }}
+                    >
+                      {index + 1}
+                    </div>
+                    <span className="font-semibold text-slate-800 dark:text-white tracking-tight">{performer.name}</span>
+                  </div>
+                  <span className="font-extrabold text-[#16A34A] bg-white dark:bg-gray-800 px-2.5 py-1 rounded-lg shadow-sm border border-slate-100 dark:border-gray-700">
+                    ₹{(performer.revenue || 0).toLocaleString()}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="text-center py-8 text-slate-400 font-medium">
+            No won deals assigned to reps yet.
+          </div>
+        )}
+      </div>
+    </motion.div>
+  );
+};
+
+export default memo(TopPerformersCard);
