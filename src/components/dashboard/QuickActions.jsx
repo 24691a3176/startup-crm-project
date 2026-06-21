@@ -1,11 +1,13 @@
 import { PlusCircle, List, Download } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useLeads } from "../../context/LeadContext";
+import { useTheme } from "../../context/ThemeContext";
 import toast from "react-hot-toast";
 
 export default function QuickActions() {
   const navigate = useNavigate();
   const { leads } = useLeads();
+  const { isDarkMode } = useTheme();
 
   const handleExport = () => {
     try {
@@ -68,24 +70,32 @@ export default function QuickActions() {
 
         <button
           onClick={() => navigate("/leads")}
-          className="flex items-center w-full p-3 rounded-lg text-white transition-all duration-200 transform hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_0_15px_rgba(37,99,235,0.3)] cursor-pointer"
-          style={{ background: "#0F172A" }}
+          className={`flex items-center w-full p-3 rounded-lg border transition-all duration-300 ease-in-out transform cursor-pointer hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_0_15px_rgba(37,99,235,0.3)] ${
+            isDarkMode
+              ? 'bg-slate-900 text-white border-slate-700 hover:bg-slate-800'
+              : 'bg-white text-gray-900 border-gray-200 hover:bg-gray-50'
+          }`}
         >
-          <List size={20} className="mr-3 text-slate-400" />
+          <List size={20} className={`mr-3 ${isDarkMode ? 'text-slate-400' : 'text-gray-700'}`} />
           <span className="font-medium">View All Leads</span>
         </button>
 
         <button
           onClick={handleExport}
           disabled={!leads || leads.length === 0}
-          className={`flex items-center w-full p-3 rounded-lg text-white transition-all duration-200 transform ${
+          className={`flex items-center w-full p-3 rounded-lg border transition-all duration-300 ease-in-out transform ${
+            isDarkMode
+              ? 'bg-slate-900 text-white border-slate-700'
+              : 'bg-white text-gray-900 border-gray-200'
+          } ${
             !leads || leads.length === 0
-              ? "opacity-50 cursor-not-allowed"
-              : "hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_0_15px_rgba(37,99,235,0.3)] cursor-pointer"
+              ? 'opacity-50 cursor-not-allowed'
+              : `cursor-pointer hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_0_15px_rgba(37,99,235,0.3)] ${
+                  isDarkMode ? 'hover:bg-slate-800' : 'hover:bg-gray-50'
+                }`
           }`}
-          style={{ background: "#0F172A" }}
         >
-          <Download size={20} className="mr-3 text-slate-400" />
+          <Download size={20} className={`mr-3 ${isDarkMode ? 'text-slate-400' : 'text-gray-700'}`} />
           <span className="font-medium">Export Data</span>
         </button>
       </div>
