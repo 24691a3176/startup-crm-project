@@ -69,11 +69,11 @@ export default function Leads() {
 
   const handleFormSubmit = (formData) => {
     if (selectedLead) {
-      updateLead(selectedLead.id, formData);
-      toast.success('Lead updated successfully', { style: { border: '1px solid #22C55E', color: '#16a34a' } });
+      // MongoDB returns _id, not id. Use _id with fallback to id for safety.
+      const leadId = selectedLead._id || selectedLead.id;
+      updateLead(leadId, formData);
     } else {
       addLead(formData);
-      toast.success('Lead added successfully', { style: { border: '1px solid #22C55E', color: '#16a34a' } });
     }
     handleModalClose();
   };

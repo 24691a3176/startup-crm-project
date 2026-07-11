@@ -1,4 +1,5 @@
 import { MoreVertical } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 /**
  * A component that displays a table of the most recently added leads.
@@ -8,6 +9,7 @@ import { MoreVertical } from 'lucide-react';
  * @returns {JSX.Element} The rendered RecentLeads component.
  */
 export default function RecentLeads({ leads = [] }) {
+  const navigate = useNavigate();
   // Sort leads by date added or createdAt and take top 5
   const recentLeads = [...leads]
     .sort((a, b) => {
@@ -46,7 +48,7 @@ export default function RecentLeads({ leads = [] }) {
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-slate-100 dark:border-gray-700 overflow-hidden">
       <div className="p-6 border-b border-slate-100 dark:border-gray-700 flex justify-between items-center">
         <h3 className="text-lg font-bold text-slate-800 dark:text-white">Recent Leads</h3>
-        <button className="text-blue-600 text-sm font-medium hover:underline">View All</button>
+        <button onClick={() => navigate('/leads')} className="text-blue-600 text-sm font-medium hover:underline">View All</button>
       </div>
 
       <div className="overflow-x-auto">

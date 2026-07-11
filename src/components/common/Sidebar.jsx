@@ -1,10 +1,26 @@
 // Import NavLink from react-router-dom to handle active-state navigation classes automatically
 import { NavLink } from 'react-router-dom';
+import { useState, useRef, useEffect } from 'react';
 // Import Lucide React icons for highly polished visual navigation markers
-import { LayoutDashboard, Users, BarChart3, X } from 'lucide-react';
+import { LayoutDashboard, Users, BarChart3, X, LogOut, User } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
 
 // Define the Sidebar component representing our main dashboard navigation layout
 export default function Sidebar({ isMobile, onClose }) {
+  const { user, logout } = useAuth();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Handle clicking outside to close dropdown
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
   // Define navigation items configuration array containing paths, labels, and icons
   const navItems = [
     {
@@ -94,23 +110,51 @@ export default function Sidebar({ isMobile, onClose }) {
       </div>
 
       {/* Footer of the sidebar for account information, settings and system info */}
-      <div className="pt-6 border-t border-slate-100 dark:border-gray-700">
+      <div className="pt-6 border-t border-slate-100 dark:border-gray-700 relative" ref={dropdownRef}>
+        
+        {/* Dropdown Menu */}
+        {isDropdownOpen && (
+          <div className="absolute bottom-full mb-2 left-4 right-4 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-slate-100 dark:border-gray-700 overflow-hidden z-50">
+            <button className="w-full flex items-center space-x-3 px-4 py-3 text-sm font-medium text-slate-700 dark:text-gray-200 hover:bg-slate-50 dark:hover:bg-gray-700 transition-colors">
+              <User size={16} />
+              <span>My Profile</span>
+            </button>
+            <div className="h-px bg-slate-100 dark:bg-gray-700 w-full"></div>
+            <button 
+              onClick={() => {
+                setIsDropdownOpen(false);
+                logout();
+              }}
+              className="w-full flex items-center space-x-3 px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+            >
+              <LogOut size={16} />
+              <span>Sign Out</span>
+            </button>
+          </div>
+        )}
 
         {/* User Account block showing avatar and dynamic metadata */}
-        <div className={`flex items-center justify-between p-2 lg:p-3 bg-slate-50 dark:bg-gray-700/50 rounded-[20px] border border-slate-100 dark:border-gray-600 hover:bg-slate-100 dark:hover:bg-gray-700 transition-colors cursor-pointer min-h-[44px]`}>
+        <div 
+          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          className={`flex items-center justify-between p-2 lg:p-3 bg-slate-50 dark:bg-gray-700/50 rounded-[20px] border border-slate-100 dark:border-gray-600 hover:bg-slate-100 dark:hover:bg-gray-700 transition-colors cursor-pointer min-h-[44px]`}
+        >
           <div className="flex items-center space-x-3 overflow-hidden">
             {/* Avatar image with status dot indicator */}
             <div className="relative shrink-0">
               <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-slate-200 to-slate-300 dark:from-gray-600 dark:to-gray-500 flex items-center justify-center text-slate-700 dark:text-gray-200 font-bold text-sm shadow-sm border-2 border-white dark:border-gray-700">
-                JD
+                {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
               </div>
               {/* Green active status indicator */}
               <span className="absolute bottom-0 right-0 w-3 h-3 bg-[#22C55E] rounded-full border-2 border-white dark:border-gray-800 shadow-sm"></span>
             </div>
             {/* Name and role labels */}
             <div className={`overflow-hidden`}>
-              <p className="text-sm font-bold text-slate-900 dark:text-white truncate">Jane Doe</p>
-              <p className={`text-[11px] font-semibold text-slate-500 dark:text-gray-400 truncate uppercase tracking-wider ${isMobile ? 'block' : 'hidden lg:block'}`}>Product Admin</p>
+              <p className="text-sm font-bold text-slate-900 dark:text-white truncate">
+                {user?.name || 'User'}
+              </p>
+              <p className={`text-[11px] font-semibold text-slate-500 dark:text-gray-400 truncate uppercase tracking-wider ${isMobile ? 'block' : 'hidden lg:block'}`}>
+                {user?.role || 'PRODUCT ADMIN'}
+              </p>
             </div>
           </div>
         </div>

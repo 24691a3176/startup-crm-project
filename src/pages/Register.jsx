@@ -1,0 +1,230 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { checkHealth, getErrorMessage } from '../services/api';
+import { Mail, Lock, User, ArrowRight, Loader2, WifiOff, RefreshCw } from 'lucide-react';
+import toast from 'react-hot-toast';
+
+export default function Register() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverStatus, setServerStatus] = useState('checking'); // 'checking' | 'online' | 'offline'
+  
+  const { register } = useAuth();
+  const navigate = useNavigate();
+  const retryTimerRef = useRef(null);
+
+  // ─── Pre-register health check ─────────────────────────────────────────
+  useEffect(() => {
+    let isMounted = true;
+
+    const checkServer = async () => {
+      const health = await checkHealth();
+      if (isMounted) {
+        setServerStatus(health.ok ? 'online' : 'offline');
+        if (!health.ok) {
+          retryTimerRef.current = setTimeout(checkServer, 5000);
+        }
+      }
+    };
+
+    checkServer();
+
+    return () => {
+      isMounted = false;
+      if (retryTimerRef.current) clearTimeout(retryTimerRef.current);
+    };
+  }, []);
+
+  // ─── Manual retry ──────────────────────────────────────────────────────
+  const handleRetryConnection = async () => {
+    setServerStatus('checking');
+    if (retryTimerRef.current) clearTimeout(retryTimerRef.current);
+    const health = await checkHealth();
+    setServerStatus(health.ok ? 'online' : 'offline');
+    if (health.ok) {
+      toast.success('Server is back online!');
+    } else {
+      retryTimerRef.current = setTimeout(handleRetryConnection, 5000);
+    }
+  };
+
+  // ─── Form submission ──────────────────────────────────────────────────
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Guard: don't submit if already submitting
+    if (isSubmitting) return;
+    
+    // Client-side validation: passwords must match, password min 6 chars
+    if (password !== confirmPassword) {
+      return toast.error('Passwords do not match');
+    }
+    if (password.length < 6) {
+      return toast.error('Password must be at least 6 characters');
+    }
+
+    // Check server before attempting registration
+    if (serverStatus === 'offline') {
+      toast.error('Server is offline. Please wait for reconnection.');
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      await register(name, email, password);
+      toast.success('Account created successfully!');
+      navigate('/');
+    } catch (error) {
+      // Handle validation errors (array) or single error message
+      const apiErrors = error.response?.data?.errors;
+      if (apiErrors && Array.isArray(apiErrors)) {
+        apiErrors.forEach(err => toast.error(err.message));
+      } else {
+        const message = getErrorMessage(error, 'Registration failed');
+        toast.error(message);
+      }
+
+      // If it was a network error, update server status
+      if (!error.response) {
+        setServerStatus('offline');
+        retryTimerRef.current = setTimeout(handleRetryConnection, 5000);
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-bg-light flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-8">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-text-dark mb-2">Create Account</h1>
+          <p className="text-text-gray">Join Startup CRM Lite</p>
+        </div>
+
+        {/* Server status banner */}
+        {serverStatus === 'offline' && (
+          <div className="mb-6 p-3 bg-red-50 border border-red-200 rounded-lg flex items-center justify-between">
+            <div className="flex items-center space-x-2 text-red-600">
+              <WifiOff className="w-4 h-4" />
+              <span className="text-sm font-medium">Server offline. Reconnecting...</span>
+            </div>
+            <button
+              onClick={handleRetryConnection}
+              className="text-red-600 hover:text-red-800 transition-colors"
+              title="Retry connection"
+            >
+              <RefreshCw className="w-4 h-4 animate-spin" />
+            </button>
+          </div>
+        )}
+
+        {serverStatus === 'checking' && (
+          <div className="mb-6 p-3 bg-blue-50 border border-blue-200 rounded-lg flex items-center space-x-2 text-blue-600">
+            <Loader2 className="w-4 h-4 animate-spin" />
+            <span className="text-sm font-medium">Checking server connection...</span>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-text-dark mb-2">Full Name</label>
+            <div className="relative">
+              <User className="absolute left-3 top-1/2 -translate-y-1/2 text-text-gray w-5 h-5" />
+              <input
+                id="register-name"
+                type="text"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border border-border-color rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+                placeholder="John Doe"
+                disabled={isSubmitting}
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-text-dark mb-2">Email Address</label>
+            <div className="relative">
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-text-gray w-5 h-5" />
+              <input
+                id="register-email"
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border border-border-color rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+                placeholder="you@startup.com"
+                disabled={isSubmitting}
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-text-dark mb-2">Password</label>
+            <div className="relative">
+              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-text-gray w-5 h-5" />
+              <input
+                id="register-password"
+                type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border border-border-color rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+                placeholder="••••••••"
+                disabled={isSubmitting}
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-text-dark mb-2">Confirm Password</label>
+            <div className="relative">
+              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-text-gray w-5 h-5" />
+              <input
+                id="register-confirm-password"
+                type="password"
+                required
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border border-border-color rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+                placeholder="••••••••"
+                disabled={isSubmitting}
+              />
+            </div>
+          </div>
+
+          <button
+            id="register-submit"
+            type="submit"
+            disabled={isSubmitting || serverStatus === 'offline' || serverStatus === 'checking'}
+            className="w-full bg-primary hover:bg-primary-dark text-white font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed mt-6"
+          >
+            {isSubmitting ? (
+              <>
+                <Loader2 className="w-5 h-5 animate-spin mr-2" />
+                Creating account...
+              </>
+            ) : (
+              <>
+                Create Account <ArrowRight className="w-4 h-4 ml-2" />
+              </>
+            )}
+          </button>
+        </form>
+
+        <p className="text-center mt-6 text-text-gray text-sm">
+          Already have an account?{' '}
+          <Link to="/login" className="text-primary hover:underline font-medium">
+            Sign in
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
+}
