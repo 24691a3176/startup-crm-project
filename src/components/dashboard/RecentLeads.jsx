@@ -1,4 +1,7 @@
 import { MoreVertical } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useLeads } from '../../context/LeadContext';
+import ActionMenu from '../common/ActionMenu';
 
 /**
  * A component that displays a table of the most recently added leads.
@@ -8,6 +11,8 @@ import { MoreVertical } from 'lucide-react';
  * @returns {JSX.Element} The rendered RecentLeads component.
  */
 export default function RecentLeads({ leads = [] }) {
+  const navigate = useNavigate();
+  const { deleteLead } = useLeads();
   // Sort leads by date added or createdAt and take top 5
   const recentLeads = [...leads]
     .sort((a, b) => {
@@ -42,11 +47,17 @@ export default function RecentLeads({ leads = [] }) {
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   };
 
+  const handleDelete = (leadId) => {
+    if (window.confirm('Are you sure you want to delete this lead?')) {
+      deleteLead(leadId);
+    }
+  };
+
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-slate-100 dark:border-gray-700 overflow-hidden">
       <div className="p-6 border-b border-slate-100 dark:border-gray-700 flex justify-between items-center">
         <h3 className="text-lg font-bold text-slate-800 dark:text-white">Recent Leads</h3>
-        <button className="text-blue-600 text-sm font-medium hover:underline">View All</button>
+        <button onClick={() => navigate('/leads')} className="text-blue-600 text-sm font-medium hover:underline">View All</button>
       </div>
 
       <div className="overflow-x-auto">
@@ -75,9 +86,7 @@ export default function RecentLeads({ leads = [] }) {
                     {formatDate(lead.dateAdded)}
                   </td>
                   <td className="px-6 py-4 text-right">
-                    <button className="text-slate-400 hover:text-blue-600 transition-colors" aria-label="Actions">
-                      <MoreVertical size={18} />
-                    </button>
+                    <ActionMenu lead={lead} onDelete={handleDelete} />
                   </td>
                 </tr>
               ))

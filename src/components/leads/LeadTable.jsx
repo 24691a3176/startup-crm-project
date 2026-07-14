@@ -1,6 +1,7 @@
 import React from 'react';
 import { Edit2, Trash2 } from 'lucide-react';
 import StatusBadge from './StatusBadge';
+import ActionMenu from '../common/ActionMenu';
 
 /**
  * A table view displaying all leads, typically used on larger screens.
@@ -61,22 +62,7 @@ export default function LeadTable({ leads, onEdit, onDelete }) {
                 {formatDate(lead.dateAdded || lead.createdAt)}
               </td>
               <td className="px-6 py-4 text-right">
-                <div className="flex justify-end gap-2">
-                  <button
-                    onClick={() => onEdit(lead)}
-                    className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
-                    aria-label={`Edit ${lead.name}`}
-                  >
-                    <Edit2 size={18} />
-                  </button>
-                  <button
-                    onClick={() => onDelete(lead.id)}
-                    className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
-                    aria-label={`Delete ${lead.name}`}
-                  >
-                    <Trash2 size={18} />
-                  </button>
-                </div>
+                <ActionMenu lead={lead} onEdit={onEdit} onDelete={onDelete} />
               </td>
             </tr>
           ))}

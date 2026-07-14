@@ -31,10 +31,15 @@ export default function Leads() {
     if (location.pathname === '/leads/new') {
       setSelectedLead(null);
       setIsModalOpen(true);
+    } else if (location.state?.editLead) {
+      setSelectedLead(location.state.editLead);
+      setIsModalOpen(true);
+      // Clean up state so a refresh doesn't reopen the modal
+      navigate(location.pathname, { replace: true, state: {} });
     } else {
       setIsModalOpen(false);
     }
-  }, [location.pathname]);
+  }, [location.pathname, location.state, navigate]);
 
   const handleModalClose = () => {
     setIsModalOpen(false);
@@ -63,17 +68,16 @@ export default function Leads() {
   const handleDeleteClick = (leadId) => {
     if (window.confirm('Are you sure you want to delete this lead?')) {
       deleteLead(leadId);
-      toast.success('Lead deleted successfully', { icon: '🗑️', style: { border: '1px solid #EF4444', color: '#EF4444' } });
     }
   };
 
   const handleFormSubmit = (formData) => {
     if (selectedLead) {
-      updateLead(selectedLead.id, formData);
-      toast.success('Lead updated successfully', { style: { border: '1px solid #22C55E', color: '#16a34a' } });
+      // MongoDB returns _id, not id. Use _id with fallback to id for safety.
+      const leadId = selectedLead._id || selectedLead.id;
+      updateLead(leadId, formData);
     } else {
       addLead(formData);
-      toast.success('Lead added successfully', { style: { border: '1px solid #22C55E', color: '#16a34a' } });
     }
     handleModalClose();
   };

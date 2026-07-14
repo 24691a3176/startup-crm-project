@@ -13,7 +13,7 @@ function PieChartCard({ data }) {
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie data={visibleData} dataKey="value" nameKey="name" innerRadius={62} outerRadius={92} paddingAngle={3}>
-                {visibleData.map((item) => <Cell key={item.name} fill={STATUS_COLORS[item.name]} />)}
+                {visibleData.map((item) => <Cell key={item.name} fill={STATUS_COLORS[item.name] || '#CBD5E1'} />)}
               </Pie>
               <Tooltip formatter={(value) => [`${value} leads`, "Total"]} contentStyle={{ background: "var(--chart-tooltip-bg)", borderColor: "var(--chart-tooltip-border)", color: "var(--chart-tooltip-text)", borderRadius: 12 }} />
             </PieChart>
@@ -23,7 +23,7 @@ function PieChartCard({ data }) {
           {visibleData.map((item) => (
             <div key={item.name} className="flex items-center justify-between gap-5 text-xs">
               <span className="flex items-center gap-2 text-slate-600 dark:text-gray-300">
-                <span className="size-2.5 rounded-full" style={{ background: STATUS_COLORS[item.name] }} />
+                <span className="size-2.5 rounded-full" style={{ background: STATUS_COLORS[item.name] || '#CBD5E1' }} />
                 {item.name}
               </span>
               <strong className="text-slate-900 dark:text-white">{item.value}</strong>

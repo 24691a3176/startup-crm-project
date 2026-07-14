@@ -5,6 +5,7 @@ import App from './App.jsx';
 import { LeadProvider }  from './context/LeadContext.jsx';
 import { ThemeProvider } from './context/ThemeContext.jsx';
 
+
 /**
  * Provider order (outermost → innermost):
  *   LeadProvider   – owns the leads array + CRUD; available to ALL children
