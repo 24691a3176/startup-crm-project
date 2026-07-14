@@ -1,5 +1,4 @@
-import React from 'react';
-import { Edit2, Trash2 } from 'lucide-react';
+
 import StatusBadge from './StatusBadge';
 import ActionMenu from '../common/ActionMenu';
 

@@ -36,10 +36,10 @@ export default function Leads() {
       setIsModalOpen(true);
       // Clean up state so a refresh doesn't reopen the modal
       navigate(location.pathname, { replace: true, state: {} });
-    } else {
+    } else if (location.pathname === '/leads' && !selectedLead) {
       setIsModalOpen(false);
     }
-  }, [location.pathname, location.state, navigate]);
+  }, [location.pathname, location.state, navigate, selectedLead]);
 
   const handleModalClose = () => {
     setIsModalOpen(false);

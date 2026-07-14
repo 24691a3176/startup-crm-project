@@ -1,4 +1,4 @@
-import { MoreVertical } from 'lucide-react';
+
 import { useNavigate } from 'react-router-dom';
 import { useLeads } from '../../context/LeadContext';
 import ActionMenu from '../common/ActionMenu';
