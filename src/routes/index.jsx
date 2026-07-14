@@ -21,15 +21,15 @@ import { useLeads } from '../context/LeadContext';
 
 const ProtectedRoute = () => {
   const { token, isLoading } = useAuth();
-  const { fetchLeads, leads } = useLeads();
-  const [hasFetched, setHasFetched] = React.useState(false);
+  const { fetchLeads } = useLeads();
+  const hasFetched = React.useRef(false);
   
   React.useEffect(() => {
-    if (token && !hasFetched) {
+    if (token && !hasFetched.current) {
       fetchLeads();
-      setHasFetched(true);
+      hasFetched.current = true;
     }
-  }, [token, fetchLeads, hasFetched]);
+  }, [token, fetchLeads]);
   
   if (isLoading) return <PageLoader />;
   if (!token) return <Navigate to="/login" replace />;
