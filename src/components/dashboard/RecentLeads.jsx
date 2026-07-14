@@ -1,5 +1,7 @@
 import { MoreVertical } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useLeads } from '../../context/LeadContext';
+import ActionMenu from '../common/ActionMenu';
 
 /**
  * A component that displays a table of the most recently added leads.
@@ -10,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
  */
 export default function RecentLeads({ leads = [] }) {
   const navigate = useNavigate();
+  const { deleteLead } = useLeads();
   // Sort leads by date added or createdAt and take top 5
   const recentLeads = [...leads]
     .sort((a, b) => {
@@ -42,6 +45,12 @@ export default function RecentLeads({ leads = [] }) {
     if (!dateStr) return 'N/A';
     const date = new Date(dateStr);
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  };
+
+  const handleDelete = (leadId) => {
+    if (window.confirm('Are you sure you want to delete this lead?')) {
+      deleteLead(leadId);
+    }
   };
 
   return (
@@ -77,9 +86,7 @@ export default function RecentLeads({ leads = [] }) {
                     {formatDate(lead.dateAdded)}
                   </td>
                   <td className="px-6 py-4 text-right">
-                    <button className="text-slate-400 hover:text-blue-600 transition-colors" aria-label="Actions">
-                      <MoreVertical size={18} />
-                    </button>
+                    <ActionMenu lead={lead} onDelete={handleDelete} />
                   </td>
                 </tr>
               ))

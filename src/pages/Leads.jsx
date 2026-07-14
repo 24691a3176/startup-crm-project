@@ -31,10 +31,15 @@ export default function Leads() {
     if (location.pathname === '/leads/new') {
       setSelectedLead(null);
       setIsModalOpen(true);
+    } else if (location.state?.editLead) {
+      setSelectedLead(location.state.editLead);
+      setIsModalOpen(true);
+      // Clean up state so a refresh doesn't reopen the modal
+      navigate(location.pathname, { replace: true, state: {} });
     } else {
       setIsModalOpen(false);
     }
-  }, [location.pathname]);
+  }, [location.pathname, location.state, navigate]);
 
   const handleModalClose = () => {
     setIsModalOpen(false);
@@ -63,7 +68,6 @@ export default function Leads() {
   const handleDeleteClick = (leadId) => {
     if (window.confirm('Are you sure you want to delete this lead?')) {
       deleteLead(leadId);
-      toast.success('Lead deleted successfully', { icon: '🗑️', style: { border: '1px solid #EF4444', color: '#EF4444' } });
     }
   };
 

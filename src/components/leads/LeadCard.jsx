@@ -1,6 +1,7 @@
 import React from 'react';
 import { Edit2, Trash2, Mail, Phone, Building2 } from 'lucide-react';
 import StatusBadge from './StatusBadge';
+import ActionMenu from '../common/ActionMenu';
 
 /**
  * A card view for a single lead, primarily used on mobile screens.
@@ -39,20 +40,7 @@ export default function LeadCard({ lead, onEdit, onDelete }) {
       </div>
 
       <div className="flex gap-2 justify-end pt-4 border-t border-slate-100 dark:border-gray-700">
-        <button
-          onClick={() => onEdit(lead)}
-          className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-          aria-label={`Edit ${lead.name}`}
-        >
-          <Edit2 size={18} />
-        </button>
-        <button
-          onClick={() => onDelete(lead.id)}
-          className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-          aria-label={`Delete ${lead.name}`}
-        >
-          <Trash2 size={18} />
-        </button>
+        <ActionMenu lead={lead} onEdit={onEdit} onDelete={onDelete} />
       </div>
     </div>
   );
