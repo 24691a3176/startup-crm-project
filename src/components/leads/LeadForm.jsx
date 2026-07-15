@@ -24,6 +24,7 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
 
   useEffect(() => {
     if (initialData) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFormData({
         name: initialData.name || '',
         company: initialData.company || '',

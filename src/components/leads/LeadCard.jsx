@@ -1,5 +1,5 @@
 import React from 'react';
-import { Edit2, Trash2, Mail, Phone, Building2 } from 'lucide-react';
+import { Mail, Phone, Building2 } from 'lucide-react';
 import StatusBadge from './StatusBadge';
 import ActionMenu from '../common/ActionMenu';
 

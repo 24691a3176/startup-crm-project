@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { Users, TrendingUp, IndianRupee, Clock, AlertTriangle, Target } from 'lucide-react';
 
 const StatCard = memo(({ title, value, icon: Icon, trend, iconColor, iconBg, trendColor }) => {
-  const colorMatch = iconColor.match(/text-([a-z]+)-\d+/);
   return (
     <motion.div 
       whileHover={{ y: -6 }}
