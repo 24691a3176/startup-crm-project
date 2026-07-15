@@ -1,4 +1,3 @@
-import { errorResponse } from '../utils/apiResponse.js';
 
 /**
  * Global Express error handling middleware.
@@ -9,6 +8,7 @@ import { errorResponse } from '../utils/apiResponse.js';
  * @param {Object} res - Express response object
  * @param {Function} next - Express next middleware function
  */
+// eslint-disable-next-line no-unused-vars
 const errorHandler = (err, req, res, next) => {
   let message = err.message || 'Server error';
   let statusCode = res.statusCode && res.statusCode !== 200 ? res.statusCode : 500;

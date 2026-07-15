@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Plus, LayoutGrid, List as ListIcon, X } from 'lucide-react';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import LeadTable from '../components/leads/LeadTable';
 import LeadCard from '../components/leads/LeadCard';
 import LeadForm from '../components/leads/LeadForm';
@@ -29,6 +29,7 @@ export default function Leads() {
 
   useEffect(() => {
     if (location.pathname === '/leads/new') {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSelectedLead(null);
       setIsModalOpen(true);
     } else if (location.state?.editLead) {

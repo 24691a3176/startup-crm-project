@@ -74,27 +74,16 @@ const authLimiter = rateLimit({
 app.use('/api/', generalLimiter);
 
 // 4. CORS configuration
-const allowedOrigins = [process.env.FRONTEND_URL, 'https://your-app.vercel.app'].filter(Boolean);
-
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      // Allow requests with no origin (e.g. curl, server-to-server, mobile apps)
-      if (!origin) return callback(null, true);
-      // In development: allow any localhost port
-      if (isDev && /^http:\/\/localhost:\d+$/.test(origin)) {
-        return callback(null, true);
-      }
-      // Allow exact matches from the allowedOrigins array
-      if (allowedOrigins.includes(origin)) {
-        return callback(null, true);
-      }
-      console.warn(`[CORS] Blocked request from origin: ${origin}`);
-      callback(new Error('Not allowed by CORS'));
-    },
-    credentials: true,
-  })
-);
+app.use(cors({
+    origin: [
+        "http://localhost:5173",
+        "http://localhost:5174",
+        "http://localhost:5175",
+        "http://localhost:5176",
+        "https://startup-crm-project-10.onrender.com"
+    ],
+    credentials: true
+}));
 
 // 5. Body Parser
 // express.json reads data from body into req.body. 
@@ -208,7 +197,7 @@ startServer();
 // ==========================================
 
 // Catch unhandled promise rejections (e.g., failed DB queries without .catch())
-process.on('unhandledRejection', (reason, promise) => {
+process.on('unhandledRejection', (reason) => {
   console.error('[Process] Unhandled Promise Rejection:', reason);
   // Don't crash — log and continue
 });
