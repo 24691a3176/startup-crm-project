@@ -1,7 +1,8 @@
-import dotenv from 'dotenv';
+console.log('[Startup] Loading environment...');
 // Load env vars FIRST, before anything that reads process.env
 dotenv.config();
 
+console.log('[Startup] Initializing Express application...');
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -42,11 +43,34 @@ const checkRequiredEnvVars = () => {
 // ==========================================
 // MIDDLEWARE CONFIGURATION
 // ==========================================
+console.log('[Startup] Initializing middleware...');
 
-// 1. Security Headers
+// 1. Trust Proxy
+// Required for Render/Vercel deployments to correctly identify client IP for rate limiting
+app.set('trust proxy', 1);
+
+// 2. CORS configuration
+// Must be configured BEFORE rate limiting and other middleware to ensure CORS headers are sent on all responses (including 429s)
+const corsOptions = {
+  origin: [
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:5175",
+    "http://localhost:5176",
+    "https://startup-crm-project-one.vercel.app",
+    process.env.FRONTEND_URL
+  ].filter(Boolean), // Remove undefined if FRONTEND_URL is not set
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  credentials: true,
+};
+app.use(cors(corsOptions));
+app.options(/.*/, cors(corsOptions)); // Handle preflight requests
+
+// 3. Security Headers
 app.use(helmet());
 
-// 2. Logging
+// 4. Logging
 // In production: use 'combined' for detailed logs. In dev: use 'dev' for concise colorized logs.
 if (process.env.NODE_ENV === 'production') {
   app.use(morgan('combined'));
@@ -54,7 +78,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(morgan('dev'));
 }
 
-// 3. Rate Limiting
+// 5. Rate Limiting
 const isDev = process.env.NODE_ENV !== 'production';
 
 // General rate limit: 100 requests per 15 minutes per IP
@@ -73,20 +97,7 @@ const authLimiter = rateLimit({
 
 app.use('/api/', generalLimiter);
 
-// 4. CORS configuration
-app.use(cors({
-    origin: [
-        "http://localhost:5173",
-        "http://localhost:5174",
-        "http://localhost:5175",
-        "http://localhost:5176",
-        process.env.FRONTEND_URL 
-        
-    ],
-    credentials: true
-}));
-
-// 5. Body Parser
+// 6. Body Parser
 // express.json reads data from body into req.body. 
 // Limits payload size to 10kb to prevent Denial of Service (DOS) attacks
 app.use(express.json({ limit: '10kb' }));
@@ -94,7 +105,7 @@ app.use(express.json({ limit: '10kb' }));
 // Parse URL-encoded data (e.g. form submissions)
 app.use(express.urlencoded({ extended: true }));
 
-// 6. Data Sanitization against NoSQL query injection
+// 7. Data Sanitization against NoSQL query injection
 // express-mongo-sanitize is incompatible with Express 5 (req.query is read-only).
 // This custom middleware sanitizes req.body and req.params to prevent MongoDB injection attacks.
 const sanitizeValue = (obj) => {
@@ -119,6 +130,7 @@ app.use((req, _res, next) => {
 // ==========================================
 // API ROUTES
 // ==========================================
+console.log('[Startup] Registering routes...');
 
 // Authentication related routes with stricter rate limiting
 app.use('/api/auth', authLimiter, authRoutes);
@@ -163,12 +175,12 @@ checkRequiredEnvVars();
 
 let server;
 
-// First connect to the database, then start listening for requests
+// Start listening for requests immediately so health checks pass, then connect to database
 const startServer = async () => {
   try {
-    await connectDB();
-
+    console.log('[Startup] Starting server...');
     server = app.listen(PORT, () => {
+      console.log('[Startup] Listening...');
       console.log('');
       console.log('='.repeat(50));
       console.log(`  🚀 Server running on port ${PORT} in ${MODE} mode`);
@@ -176,6 +188,7 @@ const startServer = async () => {
       console.log(`  💊 Health: http://localhost:${PORT}/api/health`);
       console.log('='.repeat(50));
       console.log('');
+      console.log('[Startup] Startup complete.');
     });
 
     server.on('error', (err) => {
@@ -185,6 +198,11 @@ const startServer = async () => {
         console.error('[Server] Server error:', err.message);
       }
     });
+
+    // Now connect to the database in the background
+    // If it takes a long time, the server is still available to respond to health checks
+    console.log('[Startup] Connecting Mongo...');
+    await connectDB();
   } catch (error) {
     console.error('[Server] Failed to start:', error.message);
     // Don't exit — the health endpoint won't be reachable, but we log clearly
