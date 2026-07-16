@@ -15,6 +15,8 @@ export const INITIAL_LEADS = [
     source: 'Website',
     dateAdded: '2026-06-12',
   },
+
+  
   {
     id: 2,
     name: 'Bob Johnson',
