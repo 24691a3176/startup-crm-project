@@ -35,10 +35,10 @@ export default function Analytics() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] dark:bg-gray-900 p-4 md:p-6 lg:p-8 w-full relative overflow-hidden transition-colors duration-200">
+    <div className="min-h-screen bg-background p-4 md:p-6 lg:p-8 w-full relative overflow-hidden transition-colors duration-200">
       {/* Decorative background elements */}
-      <div className="absolute top-0 right-0 -mr-48 -mt-48 w-96 h-96 bg-blue-400/10 dark:bg-blue-500/5 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute top-40 left-0 -ml-48 w-80 h-80 bg-emerald-400/10 dark:bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute top-0 right-0 -mr-48 -mt-48 w-96 h-96 bg-primary/10 dark:bg-primary/100/5 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute top-40 left-0 -ml-48 w-80 h-80 bg-success/10 dark:bg-success/5 rounded-full blur-3xl pointer-events-none"></div>
       
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
@@ -48,12 +48,12 @@ export default function Analytics() {
       >
 
         {/* Header + Filters */}
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 bg-white/5 dark:bg-gray-800/50 dark:bg-gray-800/50 backdrop-blur-sm p-4 rounded-2xl border border-white/60 dark:border-gray-700/60 shadow-sm transition-colors duration-200">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 bg-surface/5 dark:bg-surface/50 dark:bg-surface/50 backdrop-blur-sm p-4 rounded-2xl border border-border/60 dark:border-border/60 shadow-sm transition-colors duration-200">
           <div>
-            <h1 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 tracking-tight">
+            <h1 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent dark:from-primary dark:to-accent tracking-tight">
               Analytics Dashboard
             </h1>
-            <p className="text-slate-500 dark:text-gray-400 text-sm mt-1 font-medium">Track sales performance and growth trends with precision.</p>
+            <p className="text-text-muted text-sm mt-1 font-medium">Track sales performance and growth trends with precision.</p>
           </div>
           <AnalyticsFilters activeFilter={dateFilter} onFilterChange={handleFilterChange} />
         </div>

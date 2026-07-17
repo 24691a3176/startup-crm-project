@@ -3,18 +3,72 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+:root {
+  --background: #FAF7FD;
+  --surface: #F0EAF8;
+  --surface-hover: #E8DFF3;
+  
+  --primary: #6B46C1;
+  --primary-hover: #5A3AA3;
+  --secondary: #9272D4;
+  --accent: #FF8AAE;
+  
+  --text-main: #241A38;
+  --text-muted: #594D74;
+  --text-subtle: #8A7DA6;
+  
+  --border-main: #DDD3ED;
+  --border-focus: #C5B6DD;
+  
+  --chart-tooltip-bg: #F0EAF8;
+  --chart-tooltip-border: #DDD3ED;
+  --chart-tooltip-text: #241A38;
+}
+
+.dark {
+  --background: #171123;
+  --surface: #241B38;
+  --surface-hover: #2F2348;
+  
+  --primary: #805AD5;
+  --primary-hover: #9F7AEA;
+  --secondary: #A384DF;
+  --accent: #FF9BB7;
+  
+  --text-main: #F0EAF8;
+  --text-muted: #A396BC;
+  --text-subtle: #796C93;
+  
+  --border-main: #382D4D;
+  --border-focus: #53456D;
+  
+  --chart-tooltip-bg: #241B38;
+  --chart-tooltip-border: #382D4D;
+  --chart-tooltip-text: #F0EAF8;
+}
+
 @theme {
-    --font-roboto: "Roboto", sans-serif;
-    --color-primary: #2563EB;
+  --font-roboto: "Roboto", sans-serif;
+  
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  
   --color-success: #22C55E;
   --color-warning: #F59E0B;
   --color-danger: #EF4444;
 
-  --color-background: #F8FAFC;
-  --color-card: #FFFFFF;
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
 
-  --color-text-dark: #0F172A;
-  --color-text-gray: #64748B;
+  --color-text-main: var(--text-main);
+  --color-text-muted: var(--text-muted);
+  --color-text-subtle: var(--text-subtle);
+  
+  --color-border: var(--border-main);
+  --color-border-focus: var(--border-focus);
 }
 
 /* Smooth theme transition on all elements */
@@ -23,17 +77,4 @@ html.theme-transition *,
 html.theme-transition *::before,
 html.theme-transition *::after {
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
-}
-
-/* Chart tooltip CSS variables for light/dark modes */
-:root {
-  --chart-tooltip-bg: #ffffff;
-  --chart-tooltip-border: #e2e8f0;
-  --chart-tooltip-text: #1e293b;
-}
-
-.dark {
-  --chart-tooltip-bg: #1e293b;
-  --chart-tooltip-border: #334155;
-  --chart-tooltip-text: #f1f5f9;
 }

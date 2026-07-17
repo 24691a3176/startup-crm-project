@@ -22,7 +22,7 @@ const CustomTooltip = ({ active, payload }) => {
     const data = payload[0].payload;
 
     return (
-      <div className="bg-slate-900/90 backdrop-blur-md text-white p-3 rounded-xl border border-white/10 shadow-xl">
+      <div className="bg-background/90 backdrop-blur-md text-white p-3 rounded-xl border border-white/10 shadow-xl">
         <p className="font-semibold">{data.stage}</p>
         <p className="text-sm font-medium mt-1">
           {data.value} Leads
@@ -41,10 +41,10 @@ const FunnelChartCard = ({ data = [] }) => {
       animate={{ opacity: 1, scale: 1 }}
       whileHover={{ y: -6 }}
       transition={{ duration: 0.4 }}
-      className="bg-white dark:bg-gray-800 rounded-[24px] border border-slate-100 dark:border-gray-700 p-6 shadow-[0_10px_40px_rgba(0,0,0,0.06)] transition-shadow flex flex-col h-[400px] group"
+      className="bg-surface rounded-[24px] border border-border p-6 shadow-[0_10px_40px_rgba(0,0,0,0.06)] transition-shadow flex flex-col h-[400px] group"
     >
       <div className="mb-4">
-        <h3 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight">
+        <h3 className="text-lg font-bold text-text-main tracking-tight">
           Sales Funnel
         </h3>
       </div>
@@ -86,7 +86,7 @@ const FunnelChartCard = ({ data = [] }) => {
             </RechartsFunnelChart>
           </ResponsiveContainer>
         ) : (
-          <div className="flex items-center justify-center h-full text-slate-400 font-medium">
+          <div className="flex items-center justify-center h-full text-text-subtle font-medium">
             No funnel data available
           </div>
         )}

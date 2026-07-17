@@ -1,5 +1,6 @@
 console.log('[Startup] Loading environment...');
 // Load env vars FIRST, before anything that reads process.env
+import dotenv from 'dotenv';
 dotenv.config();
 
 console.log('[Startup] Initializing Express application...');
@@ -58,7 +59,7 @@ const corsOptions = {
     "http://localhost:5174",
     "http://localhost:5175",
     "http://localhost:5176",
-    "https://startup-crm-project-one.vercel.app",
+    
     process.env.FRONTEND_URL
   ].filter(Boolean), // Remove undefined if FRONTEND_URL is not set
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],

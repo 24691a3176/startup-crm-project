@@ -87,16 +87,16 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-bg-light flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-8">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <div className="bg-surface rounded-2xl shadow-xl w-full max-w-md p-8">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-text-dark mb-2">Welcome Back</h1>
-          <p className="text-text-gray">Sign in to Startup CRM Lite</p>
+          <h1 className="text-3xl font-bold text-text-main mb-2">Welcome Back</h1>
+          <p className="text-text-muted">Sign in to Startup CRM Lite</p>
         </div>
 
         {/* Server status banner */}
         {serverStatus === 'offline' && (
-          <div className="mb-6 p-3 bg-red-50 border border-red-200 rounded-lg flex items-center justify-between">
+          <div className="mb-6 p-3 bg-danger/10 border border-danger/30 rounded-lg flex items-center justify-between">
             <div className="flex items-center space-x-2 text-red-600">
               <WifiOff className="w-4 h-4" />
               <span className="text-sm font-medium">Server offline. Reconnecting...</span>
@@ -112,7 +112,7 @@ export default function Login() {
         )}
 
         {serverStatus === 'checking' && (
-          <div className="mb-6 p-3 bg-blue-50 border border-blue-200 rounded-lg flex items-center space-x-2 text-blue-600">
+          <div className="mb-6 p-3 bg-primary/10 border border-primary/30 rounded-lg flex items-center space-x-2 text-primary">
             <Loader2 className="w-4 h-4 animate-spin" />
             <span className="text-sm font-medium">Checking server connection...</span>
           </div>
@@ -120,16 +120,16 @@ export default function Login() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-text-dark mb-2">Email Address</label>
+            <label className="block text-sm font-medium text-text-main mb-2">Email Address</label>
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-text-gray w-5 h-5" />
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted w-5 h-5" />
               <input
                 id="login-email"
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-border-color rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+                className="w-full pl-10 pr-4 py-2 bg-transparent border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-text-main dark:text-white placeholder-text-muted/70 dark:placeholder-text-subtle caret-primary dark:caret-white transition-colors"
                 placeholder="you@startup.com"
                 disabled={isSubmitting}
               />
@@ -137,16 +137,16 @@ export default function Login() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-text-dark mb-2">Password</label>
+            <label className="block text-sm font-medium text-text-main mb-2">Password</label>
             <div className="relative">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-text-gray w-5 h-5" />
+              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted w-5 h-5" />
               <input
                 id="login-password"
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-border-color rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+                className="w-full pl-10 pr-4 py-2 bg-transparent border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-text-main dark:text-white placeholder-text-muted/70 dark:placeholder-text-subtle caret-primary dark:caret-white transition-colors"
                 placeholder="••••••••"
                 disabled={isSubmitting}
               />
@@ -157,7 +157,7 @@ export default function Login() {
             id="login-submit"
             type="submit"
             disabled={isSubmitting || serverStatus === 'offline' || serverStatus === 'checking'}
-            className="w-full bg-primary hover:bg-primary-dark text-white font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed"
+            className="w-full bg-primary hover:bg-primary-hover text-white font-medium py-2.5 rounded-lg transition-colors flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed"
           >
             {isSubmitting ? (
               <>
@@ -172,7 +172,7 @@ export default function Login() {
           </button>
         </form>
 
-        <p className="text-center mt-6 text-text-gray text-sm">
+        <p className="text-center mt-6 text-text-muted text-sm">
           Don't have an account?{' '}
           <Link to="/register" className="text-primary hover:underline font-medium">
             Create one

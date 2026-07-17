@@ -72,7 +72,7 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">
+        <label htmlFor="name" className="block text-sm font-medium text-text-main mb-1">
           Full Name *
         </label>
         <input
@@ -81,8 +81,8 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
           name="name"
           value={formData.name}
           onChange={handleChange}
-          className={`w-full p-2.5 bg-white dark:bg-gray-700 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none transition-shadow min-h-[44px] text-slate-900 dark:text-white ${
-            errors.name ? 'border-red-500 dark:border-red-400' : 'border-slate-300 dark:border-gray-600'
+          className={`w-full p-2.5 bg-surface dark:bg-surface-hover border rounded-lg focus:ring-2 focus:ring-primary dark:focus:ring-primary focus:outline-none transition-shadow min-h-[44px] text-text-main ${
+            errors.name ? 'border-red-500 dark:border-red-400' : 'border-border-focus'
           }`}
           placeholder="e.g. Jane Doe"
         />
@@ -90,7 +90,7 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
       </div>
 
       <div>
-        <label htmlFor="company" className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">
+        <label htmlFor="company" className="block text-sm font-medium text-text-main mb-1">
           Company *
         </label>
         <input
@@ -99,8 +99,8 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
           name="company"
           value={formData.company}
           onChange={handleChange}
-          className={`w-full p-2.5 bg-white dark:bg-gray-700 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none transition-shadow min-h-[44px] text-slate-900 dark:text-white ${
-            errors.company ? 'border-red-500 dark:border-red-400' : 'border-slate-300 dark:border-gray-600'
+          className={`w-full p-2.5 bg-surface dark:bg-surface-hover border rounded-lg focus:ring-2 focus:ring-primary dark:focus:ring-primary focus:outline-none transition-shadow min-h-[44px] text-text-main ${
+            errors.company ? 'border-red-500 dark:border-red-400' : 'border-border-focus'
           }`}
           placeholder="e.g. Acme Corp"
         />
@@ -108,7 +108,7 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">
+        <label htmlFor="email" className="block text-sm font-medium text-text-main mb-1">
           Email Address *
         </label>
         <input
@@ -117,8 +117,8 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          className={`w-full p-2.5 bg-white dark:bg-gray-700 border rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none transition-shadow min-h-[44px] text-slate-900 dark:text-white ${
-            errors.email ? 'border-red-500 dark:border-red-400' : 'border-slate-300 dark:border-gray-600'
+          className={`w-full p-2.5 bg-surface dark:bg-surface-hover border rounded-lg focus:ring-2 focus:ring-primary dark:focus:ring-primary focus:outline-none transition-shadow min-h-[44px] text-text-main ${
+            errors.email ? 'border-red-500 dark:border-red-400' : 'border-border-focus'
           }`}
           placeholder="jane@example.com"
         />
@@ -126,7 +126,7 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
       </div>
 
       <div>
-        <label htmlFor="phone" className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">
+        <label htmlFor="phone" className="block text-sm font-medium text-text-main mb-1">
           Phone Number
         </label>
         <input
@@ -135,14 +135,14 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
           name="phone"
           value={formData.phone}
           onChange={handleChange}
-          className="w-full p-2.5 bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none transition-shadow min-h-[44px] text-slate-900 dark:text-white"
+          className="w-full p-2.5 bg-surface dark:bg-surface-hover border border-border-focus rounded-lg focus:ring-2 focus:ring-primary dark:focus:ring-primary focus:outline-none transition-shadow min-h-[44px] text-text-main"
           placeholder="(555) 123-4567"
         />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="status" className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">
+          <label htmlFor="status" className="block text-sm font-medium text-text-main mb-1">
             Status
           </label>
           <select
@@ -150,7 +150,7 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
             name="status"
             value={formData.status}
             onChange={handleChange}
-            className="w-full p-2.5 bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none min-h-[44px] text-slate-900 dark:text-white"
+            className="w-full p-2.5 bg-surface dark:bg-surface-hover border border-border-focus rounded-lg focus:ring-2 focus:ring-primary dark:focus:ring-primary focus:outline-none min-h-[44px] text-text-main"
           >
             {statusOptions.map((opt) => (
               <option key={opt} value={opt}>
@@ -161,7 +161,7 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
         </div>
 
         <div>
-          <label htmlFor="source" className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">
+          <label htmlFor="source" className="block text-sm font-medium text-text-main mb-1">
             Source
           </label>
           <select
@@ -169,7 +169,7 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
             name="source"
             value={formData.source}
             onChange={handleChange}
-            className="w-full p-2.5 bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none min-h-[44px] text-slate-900 dark:text-white"
+            className="w-full p-2.5 bg-surface dark:bg-surface-hover border border-border-focus rounded-lg focus:ring-2 focus:ring-primary dark:focus:ring-primary focus:outline-none min-h-[44px] text-text-main"
           >
             {sourceOptions.map((opt) => (
               <option key={opt} value={opt}>
@@ -181,7 +181,7 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
       </div>
 
       <div>
-        <label htmlFor="notes" className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">
+        <label htmlFor="notes" className="block text-sm font-medium text-text-main mb-1">
           Notes
         </label>
         <textarea
@@ -190,22 +190,22 @@ export default function LeadForm({ initialData, onSubmit, onCancel }) {
           value={formData.notes}
           onChange={handleChange}
           rows="3"
-          className="w-full p-2.5 bg-white dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:outline-none transition-shadow text-slate-900 dark:text-white resize-y"
+          className="w-full p-2.5 bg-surface dark:bg-surface-hover border border-border-focus rounded-lg focus:ring-2 focus:ring-primary dark:focus:ring-primary focus:outline-none transition-shadow text-text-main resize-y"
           placeholder="Add any additional notes here..."
         ></textarea>
       </div>
 
-      <div className="flex justify-end gap-3 pt-4 border-t border-slate-100 dark:border-gray-700 mt-6 pb-2 md:pb-0">
+      <div className="flex justify-end gap-3 pt-4 border-t border-border mt-6 pb-2 md:pb-0">
         <button
           type="button"
           onClick={onCancel}
-          className="flex-1 md:flex-none px-4 py-2 min-h-[44px] text-slate-600 dark:text-gray-300 bg-white dark:bg-gray-800 border border-slate-300 dark:border-gray-600 rounded-lg hover:bg-slate-50 dark:hover:bg-gray-700 dark:bg-gray-900 dark:hover:bg-gray-700 transition-colors font-medium flex justify-center items-center"
+          className="flex-1 md:flex-none px-4 py-2 min-h-[44px] text-text-muted bg-surface border border-border-focus rounded-lg hover:bg-surface-hover dark:bg-surface dark:hover:bg-surface-hover transition-colors font-medium flex justify-center items-center"
         >
           Cancel
         </button>
         <button
           type="submit"
-          className="flex-1 md:flex-none px-4 py-2 min-h-[44px] text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors font-medium flex justify-center items-center shadow-sm"
+          className="flex-1 md:flex-none px-4 py-2 min-h-[44px] text-white bg-primary rounded-lg hover:bg-primary-hover transition-colors font-medium flex justify-center items-center shadow-sm"
         >
           {initialData ? 'Save Changes' : 'Add Lead'}
         </button>

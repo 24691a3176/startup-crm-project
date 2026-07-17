@@ -6,8 +6,8 @@ const HEATMAP_SCALE = [
   { bg: '#DBEAFE', border: '#BFDBFE' },       // low
   { bg: '#BFDBFE', border: '#93C5FD' },       // medium-low
   { bg: '#93C5FD', border: '#60A5FA' },       // medium
-  { bg: '#60A5FA', border: '#3B82F6' },       // medium-high
-  { bg: '#3B82F6', border: '#2563EB' },       // high
+  { bg: '#60A5FA', border: '#6B46C1' },       // medium-high
+  { bg: '#6B46C1', border: '#6B46C1' },       // high
 ];
 
 const ActivityHeatmap = ({ data = [] }) => {
@@ -51,10 +51,10 @@ const ActivityHeatmap = ({ data = [] }) => {
       animate={{ opacity: 1, scale: 1 }}
       whileHover={{ y: -6 }}
       transition={{ duration: 0.4 }}
-      className="bg-white dark:bg-gray-800 rounded-[24px] border border-slate-100 dark:border-gray-700 p-6 shadow-[0_10px_40px_rgba(0,0,0,0.06)] flex flex-col h-full overflow-hidden"
+      className="bg-surface rounded-[24px] border border-border p-6 shadow-[0_10px_40px_rgba(0,0,0,0.06)] flex flex-col h-full overflow-hidden"
     >
       <div className="mb-6">
-        <h3 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight">Activity Heatmap</h3>
+        <h3 className="text-lg font-bold text-text-main tracking-tight">Activity Heatmap</h3>
       </div>
 
       <div className="flex-grow flex flex-col justify-center overflow-x-auto pb-2 mt-2">
@@ -68,7 +68,7 @@ const ActivityHeatmap = ({ data = [] }) => {
                 return (
                   <div
                     key={date}
-                    className="w-3.5 h-3.5 rounded-[4px] border hover:ring-2 ring-blue-500 ring-offset-1 cursor-pointer transition-all hover:scale-125 z-10"
+                    className="w-3.5 h-3.5 rounded-[4px] border hover:ring-2 ring-primary ring-offset-1 cursor-pointer transition-all hover:scale-125 z-10"
                     style={{ backgroundColor: color.bg, borderColor: color.border }}
                     title={`${date}: ${count} activities`}
                   />
@@ -78,7 +78,7 @@ const ActivityHeatmap = ({ data = [] }) => {
           ))}
         </div>
 
-        <div className="mt-8 flex items-center justify-end text-xs font-semibold text-slate-500 dark:text-gray-400 space-x-2">
+        <div className="mt-8 flex items-center justify-end text-xs font-semibold text-text-muted space-x-2">
           <span>Less</span>
           <div className="flex gap-1">
             {HEATMAP_SCALE.map((color, i) => (

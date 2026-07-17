@@ -20,19 +20,19 @@ export default function PipelineOverview({ leads = [] }) {
 
   // Using arbitrary values or closely matched tailwind colors to match requested palette
   const colorMap = {
-    'New': 'bg-blue-600',        // Primary
-    'Contacted': 'bg-amber-500', // Warning
-    'Qualified': 'bg-blue-400',
+    'New': 'bg-primary',        // Primary
+    'Contacted': 'bg-accent', // Warning
+    'Qualified': 'bg-primary/70',
     'Proposal': 'bg-indigo-500',
     'Won': 'bg-green-500',       // Success
-    'Lost': 'bg-red-500'         // Danger
+    'Lost': 'bg-danger/100'         // Danger
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-gray-700">
-      <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-4">Pipeline Overview</h3>
+    <div className="bg-surface p-6 rounded-xl shadow-sm border border-border">
+      <h3 className="text-lg font-bold text-text-main dark:text-white mb-4">Pipeline Overview</h3>
       
-      <div className="w-full h-4 flex rounded-full overflow-hidden mb-6 bg-slate-100">
+      <div className="w-full h-4 flex rounded-full overflow-hidden mb-6 bg-surface-hover">
         {statuses.map(status => {
           const count = counts[status] || 0;
           if (count === 0) return null;
@@ -41,7 +41,7 @@ export default function PipelineOverview({ leads = [] }) {
             <div 
               key={status} 
               style={{ width: `${percentage}%` }}
-              className={`${colorMap[status] || 'bg-slate-300'} h-full transition-all duration-500 hover:opacity-90`}
+              className={`${colorMap[status] || 'bg-surface-hover'} h-full transition-all duration-500 hover:opacity-90`}
               title={`${status}: ${count} (${percentage.toFixed(1)}%)`}
             />
           );
@@ -53,9 +53,9 @@ export default function PipelineOverview({ leads = [] }) {
           const count = counts[status] || 0;
           return (
             <div key={status} className="flex items-center space-x-2">
-              <span className={`w-3 h-3 rounded-full ${colorMap[status] || 'bg-slate-300'}`} />
-              <span className="text-sm text-slate-600 dark:text-gray-300 flex-1">{status}</span>
-              <span className="text-sm font-semibold text-slate-800 dark:text-white">{count}</span>
+              <span className={`w-3 h-3 rounded-full ${colorMap[status] || 'bg-surface-hover'}`} />
+              <span className="text-sm text-text-muted flex-1">{status}</span>
+              <span className="text-sm font-semibold text-text-main dark:text-white">{count}</span>
             </div>
           );
         })}

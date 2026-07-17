@@ -5,9 +5,9 @@ import { STATUS_COLORS } from "../../constants/analyticsColors";
 function PieChartCard({ data }) {
   const visibleData = data.filter((item) => item.value > 0);
   return (
-    <article className="min-w-0 rounded-2xl border border-slate-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 shadow-sm transition-all hover:shadow-md dark:border-gray-700 dark:bg-gray-800 sm:p-6">
-      <h2 className="text-lg font-bold text-slate-900 dark:text-white">Lead Status Distribution</h2>
-      <p className="text-sm text-slate-500 dark:text-gray-400">Current pipeline composition</p>
+    <article className="min-w-0 rounded-2xl border border-border bg-surface p-4 shadow-sm transition-all hover:shadow-md dark:border-border dark:bg-surface sm:p-6">
+      <h2 className="text-lg font-bold text-text-main">Lead Status Distribution</h2>
+      <p className="text-sm text-text-muted">Current pipeline composition</p>
       <div className="mt-4 grid items-center gap-4 sm:grid-cols-[1fr_auto]">
         <div className="h-64 min-w-0">
           <ResponsiveContainer width="100%" height="100%">
@@ -22,11 +22,11 @@ function PieChartCard({ data }) {
         <div className="space-y-2">
           {visibleData.map((item) => (
             <div key={item.name} className="flex items-center justify-between gap-5 text-xs">
-              <span className="flex items-center gap-2 text-slate-600 dark:text-gray-300">
+              <span className="flex items-center gap-2 text-text-muted">
                 <span className="size-2.5 rounded-full" style={{ background: STATUS_COLORS[item.name] || '#CBD5E1' }} />
                 {item.name}
               </span>
-              <strong className="text-slate-900 dark:text-white">{item.value}</strong>
+              <strong className="text-text-main">{item.value}</strong>
             </div>
           ))}
         </div>

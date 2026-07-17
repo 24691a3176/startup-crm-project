@@ -5,8 +5,8 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-slate-900/90 backdrop-blur-md text-white p-3 rounded-xl border border-white/10 shadow-xl">
-        <p className="text-xs text-slate-400 font-semibold mb-1 uppercase tracking-wider">{label}</p>
+      <div className="bg-background/90 backdrop-blur-md text-white p-3 rounded-xl border border-white/10 shadow-xl">
+        <p className="text-xs text-text-subtle font-semibold mb-1 uppercase tracking-wider">{label}</p>
         <p className="text-sm font-extrabold text-emerald-400">Revenue : ₹{payload[0].value.toLocaleString()}</p>
       </div>
     );
@@ -21,10 +21,10 @@ const RevenueChartCard = ({ data = [] }) => {
       animate={{ opacity: 1, scale: 1 }}
       whileHover={{ y: -6 }}
       transition={{ duration: 0.4 }}
-      className="bg-white dark:bg-gray-800 rounded-[24px] border border-slate-100 dark:border-gray-700 p-6 shadow-[0_10px_40px_rgba(0,0,0,0.06)] flex flex-col h-[400px]"
+      className="bg-surface rounded-[24px] border border-border p-6 shadow-[0_10px_40px_rgba(0,0,0,0.06)] flex flex-col h-[400px]"
     >
       <div className="mb-6">
-        <h3 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight">Revenue Trend</h3>
+        <h3 className="text-lg font-bold text-text-main tracking-tight">Revenue Trend</h3>
       </div>
       
       <div className="flex-grow w-full h-full">
@@ -69,7 +69,7 @@ const RevenueChartCard = ({ data = [] }) => {
             </AreaChart>
           </ResponsiveContainer>
         ) : (
-          <div className="flex items-center justify-center h-full text-slate-400 font-medium">No data available</div>
+          <div className="flex items-center justify-center h-full text-text-subtle font-medium">No data available</div>
         )}
       </div>
     </motion.div>

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
 const SOURCE_COLORS = {
-  Website: '#3B82F6',
+  Website: '#6B46C1',
   Referral: '#10B981',
   Ads: '#F59E0B',
   LinkedIn: '#0EA5E9',
@@ -11,12 +11,12 @@ const SOURCE_COLORS = {
   'Cold Email': '#6366F1',
 };
 
-const FALLBACK_COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#0EA5E9', '#EC4899', '#6366F1'];
+const FALLBACK_COLORS = ['#6B46C1', '#10B981', '#F59E0B', '#0EA5E9', '#EC4899', '#6366F1'];
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-slate-900/90 backdrop-blur-md text-white p-3 rounded-xl border border-white/10 shadow-xl">
+      <div className="bg-background/90 backdrop-blur-md text-white p-3 rounded-xl border border-white/10 shadow-xl">
         <p className="font-semibold">{label}</p>
         <p className="text-sm font-medium mt-1">{payload[0].value} Leads</p>
       </div>
@@ -32,10 +32,10 @@ const LeadSourceChart = ({ data = [] }) => {
       animate={{ opacity: 1, scale: 1 }}
       whileHover={{ y: -6 }}
       transition={{ duration: 0.4 }}
-      className="bg-white dark:bg-gray-800 rounded-[24px] border border-slate-100 dark:border-gray-700 p-6 shadow-[0_10px_40px_rgba(0,0,0,0.06)] flex flex-col h-[400px]"
+      className="bg-surface rounded-[24px] border border-border p-6 shadow-[0_10px_40px_rgba(0,0,0,0.06)] flex flex-col h-[400px]"
     >
       <div className="mb-6">
-        <h3 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight">Lead Sources</h3>
+        <h3 className="text-lg font-bold text-text-main tracking-tight">Lead Sources</h3>
       </div>
       
       <div className="flex-grow w-full h-full">
@@ -55,7 +55,7 @@ const LeadSourceChart = ({ data = [] }) => {
                 dataKey="name" 
                 axisLine={false} 
                 tickLine={false} 
-                tick={{ fill: '#334155', fontSize: 13, fontWeight: 600 }}
+                tick={{ fill: '#796C93', fontSize: 13, fontWeight: 600 }}
                 width={80}
               />
               <Tooltip cursor={{ fill: 'transparent' }} content={<CustomTooltip />} />
@@ -67,7 +67,7 @@ const LeadSourceChart = ({ data = [] }) => {
             </BarChart>
           </ResponsiveContainer>
         ) : (
-          <div className="flex items-center justify-center h-full text-slate-400 font-medium">No source data available</div>
+          <div className="flex items-center justify-center h-full text-text-subtle font-medium">No source data available</div>
         )}
       </div>
     </motion.div>

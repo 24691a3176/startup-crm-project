@@ -14,17 +14,17 @@ export default function Dashboard() {
   const { leads } = useLeads();
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-gray-900 p-4 md:p-6 lg:p-8 w-full transition-colors duration-200">
+    <div className="min-h-screen bg-background p-4 md:p-6 lg:p-8 w-full transition-colors duration-200">
       <div className="max-w-7xl mx-auto space-y-4 md:space-y-6">
 
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-slate-800 dark:text-white">Dashboard</h1>
-            <p className="text-slate-500 dark:text-gray-400 mt-1 text-sm md:text-base">Welcome back! Here's what's happening with your leads today.</p>
+            <h1 className="text-2xl md:text-3xl font-bold text-text-main dark:text-white">Dashboard</h1>
+            <p className="text-text-muted mt-1 text-sm md:text-base">Welcome back! Here's what's happening with your leads today.</p>
           </div>
           <div>
-            <span className="inline-block text-sm font-medium text-slate-500 dark:text-gray-400 bg-white dark:bg-gray-800 px-3 py-1.5 rounded-full border border-slate-200 dark:border-gray-700 shadow-sm">
+            <span className="inline-block text-sm font-medium text-text-muted bg-surface px-3 py-1.5 rounded-full border border-border shadow-sm">
               {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
             </span>
           </div>

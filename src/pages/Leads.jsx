@@ -84,29 +84,29 @@ export default function Leads() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-gray-900 p-4 sm:p-6 lg:p-8 w-full transition-colors duration-200">
+    <div className="min-h-screen bg-background p-4 sm:p-6 lg:p-8 w-full transition-colors duration-200">
       <Toaster position="top-right" />
       
       <div className="max-w-7xl mx-auto space-y-4 md:space-y-6">
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 dark:text-white">Lead Management</h1>
-            <p className="text-slate-500 dark:text-gray-400 mt-1">View, track, and manage all your inbound leads.</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-text-main dark:text-white">Lead Management</h1>
+            <p className="text-text-muted mt-1">View, track, and manage all your inbound leads.</p>
           </div>
           <div className="flex items-center gap-3 self-end md:self-auto">
             {/* View Toggle - visible primarily on tablet (hidden on mobile and desktop) */}
-            <div className="hidden md:flex lg:hidden items-center bg-white dark:bg-gray-800 border border-slate-200 dark:border-gray-700 rounded-lg p-1 shadow-sm">
+            <div className="hidden md:flex lg:hidden items-center bg-surface border border-border rounded-lg p-1 shadow-sm">
               <button
                 onClick={() => setViewMode('table')}
-                className={`p-1.5 rounded-md transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center ${viewMode === 'table' ? 'bg-slate-100 dark:bg-gray-700 text-blue-600 dark:text-blue-400' : 'text-slate-400 dark:text-gray-500 hover:text-slate-600 dark:text-gray-300 dark:hover:text-gray-300'}`}
+                className={`p-1.5 rounded-md transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center ${viewMode === 'table' ? 'bg-surface-hover text-primary' : 'text-text-subtle hover:text-text-muted dark:hover:text-text-main'}`}
                 aria-label="Table View"
               >
                 <ListIcon size={18} />
               </button>
               <button
                 onClick={() => setViewMode('card')}
-                className={`p-1.5 rounded-md transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center ${viewMode === 'card' ? 'bg-slate-100 dark:bg-gray-700 text-blue-600 dark:text-blue-400' : 'text-slate-400 dark:text-gray-500 hover:text-slate-600 dark:text-gray-300 dark:hover:text-gray-300'}`}
+                className={`p-1.5 rounded-md transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center ${viewMode === 'card' ? 'bg-surface-hover text-primary' : 'text-text-subtle hover:text-text-muted dark:hover:text-text-main'}`}
                 aria-label="Card View"
               >
                 <LayoutGrid size={18} />
@@ -115,7 +115,7 @@ export default function Leads() {
             
             <button
               onClick={handleAddClick}
-              className="flex items-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors shadow-sm min-h-[44px]"
+              className="flex items-center bg-primary hover:bg-primary-hover text-white px-4 py-2 rounded-lg font-medium transition-colors shadow-sm min-h-[44px]"
             >
               <Plus size={20} className="mr-2" />
               Add Lead
@@ -125,7 +125,7 @@ export default function Leads() {
 
         {/* Content Area */}
         <div className="mt-6 flex flex-col gap-4">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-slate-200 dark:border-gray-700 transition-colors duration-200">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-surface p-4 rounded-xl shadow-sm border border-border transition-colors duration-200">
             <FilterBar activeFilter={activeFilter} onFilterChange={setActiveFilter} leads={leads} />
             <SearchBar value={searchQuery} onChange={setSearchQuery} />
           </div>
@@ -136,7 +136,7 @@ export default function Leads() {
               <LeadCard key={`mobile-${lead.id}`} lead={lead} onEdit={handleEditClick} onDelete={handleDeleteClick} />
             ))}
             {filteredLeads.length === 0 && (
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-slate-200 dark:border-gray-700">
+              <div className="bg-surface rounded-xl shadow-sm border border-border">
                 <EmptyState totalLeads={leads.length} onClearFilters={() => { setSearchQuery(''); setActiveFilter('All'); }} />
               </div>
             )}
@@ -148,7 +148,7 @@ export default function Leads() {
               {filteredLeads.length > 0 ? (
                 <LeadTable leads={filteredLeads} onEdit={handleEditClick} onDelete={handleDeleteClick} />
               ) : (
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-slate-200 dark:border-gray-700">
+                <div className="bg-surface rounded-xl shadow-sm border border-border">
                   <EmptyState totalLeads={leads.length} onClearFilters={() => { setSearchQuery(''); setActiveFilter('All'); }} />
                 </div>
               )}
@@ -161,7 +161,7 @@ export default function Leads() {
                   <LeadCard key={`tablet-${lead.id}`} lead={lead} onEdit={handleEditClick} onDelete={handleDeleteClick} />
                 ))}
                 {filteredLeads.length === 0 && (
-                  <div className="col-span-full bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-slate-200 dark:border-gray-700">
+                  <div className="col-span-full bg-surface rounded-xl shadow-sm border border-border">
                     <EmptyState totalLeads={leads.length} onClearFilters={() => { setSearchQuery(''); setActiveFilter('All'); }} />
                   </div>
                 )}
@@ -173,15 +173,15 @@ export default function Leads() {
 
       {/* Modal Overlay */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-0 md:p-4 bg-slate-900/50 dark:bg-black/60 backdrop-blur-sm transition-opacity">
-          <div className="bg-white dark:bg-gray-800 rounded-none md:rounded-xl shadow-xl w-full max-w-lg overflow-hidden flex flex-col h-full md:h-auto md:max-h-[90vh] transition-colors duration-200">
-            <div className="flex justify-between items-center p-4 md:p-5 border-b border-slate-100 dark:border-gray-700 shrink-0">
-              <h2 className="text-xl font-bold text-slate-800 dark:text-white">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-0 md:p-4 bg-background/50 dark:bg-black/60 backdrop-blur-sm transition-opacity">
+          <div className="bg-surface rounded-none md:rounded-xl shadow-xl w-full max-w-lg overflow-hidden flex flex-col h-full md:h-auto md:max-h-[90vh] transition-colors duration-200">
+            <div className="flex justify-between items-center p-4 md:p-5 border-b border-border shrink-0">
+              <h2 className="text-xl font-bold text-text-main dark:text-white">
                 {selectedLead ? 'Edit Lead' : 'Add New Lead'}
               </h2>
               <button
                 onClick={handleModalClose}
-                className="text-slate-400 dark:text-gray-500 hover:text-slate-600 dark:text-gray-300 dark:hover:text-gray-300 transition-colors p-2 min-h-[44px] min-w-[44px] flex items-center justify-center focus:outline-none"
+                className="text-text-subtle hover:text-text-muted dark:hover:text-text-main transition-colors p-2 min-h-[44px] min-w-[44px] flex items-center justify-center focus:outline-none"
                 aria-label="Close modal"
               >
                 <X size={24} />

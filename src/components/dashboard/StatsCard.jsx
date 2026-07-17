@@ -13,25 +13,25 @@ export default function StatsCard({ title, value, icon, change, color = "blue" }
   const isPositive = change >= 0;
   
   // Tailwind classes mapping to user's color palette
-  // Primary #2563EB -> blue-600
+  // Primary #6B46C1 -> blue-600
   // Success #22C55E -> green-500
   // Warning #F59E0B -> amber-500
   // Danger #EF4444 -> red-500
   const colorMap = {
-    blue: { iconBg: "bg-blue-100", iconText: "text-blue-600" },
+    blue: { iconBg: "bg-primary/15", iconText: "text-primary" },
     green: { iconBg: "bg-green-100", iconText: "text-green-500" },
-    amber: { iconBg: "bg-amber-100", iconText: "text-amber-500" },
+    amber: { iconBg: "bg-amber-100", iconText: "text-accent" },
     red: { iconBg: "bg-red-100", iconText: "text-red-500" }
   };
 
   const selectedColor = colorMap[color] || colorMap.blue;
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-gray-700 flex flex-col justify-between hover:shadow-md transition-shadow">
+    <div className="bg-surface p-6 rounded-xl shadow-sm border border-border flex flex-col justify-between hover:shadow-md transition-shadow">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm font-medium text-slate-500 dark:text-gray-400 mb-1">{title}</p>
-          <h3 className="text-3xl font-bold text-slate-800 dark:text-white">{value}</h3>
+          <p className="text-sm font-medium text-text-muted mb-1">{title}</p>
+          <h3 className="text-3xl font-bold text-text-main dark:text-white">{value}</h3>
         </div>
         <div className={`p-3 rounded-lg ${selectedColor.iconBg} ${selectedColor.iconText}`}>
           {icon}
@@ -41,7 +41,7 @@ export default function StatsCard({ title, value, icon, change, color = "blue" }
         <span className={`text-sm font-semibold flex items-center ${isPositive ? 'text-green-500' : 'text-red-500'}`}>
           {isPositive ? '+' : ''}{change}%
         </span>
-        <span className="text-sm text-slate-400 ml-2">vs last month</span>
+        <span className="text-sm text-text-subtle ml-2">vs last month</span>
       </div>
     </div>
   );

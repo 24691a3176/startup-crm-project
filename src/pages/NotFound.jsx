@@ -23,19 +23,19 @@ export default function NotFound() {
       </div>
 
       {/* Primary error status heading */}
-      <h1 className="font-roboto font-extrabold text-7xl text-text-dark dark:text-white tracking-tighter">404</h1>
+      <h1 className="font-roboto font-extrabold text-7xl text-text-main dark:text-white tracking-tighter">404</h1>
       {/* Main explanation title */}
-      <h2 className="font-roboto font-bold text-xl text-text-dark dark:text-white mt-4">Module Not Found</h2>
+      <h2 className="font-roboto font-bold text-xl text-text-main dark:text-white mt-4">Module Not Found</h2>
 
       {/* Supporting details text explaining the cause */}
-      <p className="text-text-gray dark:text-gray-400 font-roboto text-sm max-w-md mt-2">
+      <p className="text-text-muted font-roboto text-sm max-w-md mt-2">
         The CRM module or pathway you are trying to reach does not exist or has been relocated to another node.
       </p>
 
       {/* Action button redirecting the user back to the primary Dashboard path */}
       <Link
         to="/"
-        className="flex items-center space-x-2 bg-primary hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl text-sm font-semibold shadow-md shadow-primary/20 hover:shadow-lg transition-all duration-300 mt-8 group"
+        className="flex items-center space-x-2 bg-primary hover:bg-primary-hover text-white px-5 py-2.5 rounded-xl text-sm font-semibold shadow-md shadow-primary/20 hover:shadow-lg transition-all duration-300 mt-8 group"
       >
         {/* Back arrow with left hover slide animation */}
         <ArrowLeft className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1" />

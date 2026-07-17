@@ -166,7 +166,7 @@ export const getFunnelData = (leads) => {
 
   return [
     { stage: 'New', value: newCount, fill: STATUS_COLORS['New'] || '#94A3B8' },
-    { stage: 'Contacted', value: contactedCount, fill: STATUS_COLORS['Contacted'] || '#2563EB' },
+    { stage: 'Contacted', value: contactedCount, fill: STATUS_COLORS['Contacted'] || '#6B46C1' },
     { stage: 'Meeting', value: meetingCount, fill: STATUS_COLORS['Meeting'] || '#F59E0B' },
     { stage: 'Proposal', value: proposalCount, fill: STATUS_COLORS['Proposal'] || '#7C3AED' },
     { stage: 'Won', value: wonCount, fill: STATUS_COLORS['Won'] || '#22C55E' },

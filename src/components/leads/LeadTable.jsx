@@ -14,7 +14,7 @@ import ActionMenu from '../common/ActionMenu';
 export default function LeadTable({ leads, onEdit, onDelete }) {
   if (!leads || leads.length === 0) {
     return (
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-slate-200 dark:border-gray-700 p-8 text-center text-slate-500 dark:text-gray-400">
+      <div className="bg-surface rounded-xl shadow-sm border border-border p-8 text-center text-text-muted">
         No leads found. Add a new lead to get started.
       </div>
     );
@@ -30,10 +30,10 @@ export default function LeadTable({ leads, onEdit, onDelete }) {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-slate-200 dark:border-gray-700 overflow-x-auto">
+    <div className="bg-surface rounded-xl shadow-sm border border-border overflow-x-auto">
       <table className="w-full text-left border-collapse min-w-[800px]">
         <thead>
-          <tr className="bg-slate-50 dark:bg-gray-900 text-slate-500 dark:text-gray-400 text-xs uppercase tracking-wider border-b border-slate-200 dark:border-gray-700">
+          <tr className="bg-background text-text-muted text-xs uppercase tracking-wider border-b border-border">
             <th className="px-6 py-4 font-medium">Name</th>
             <th className="px-6 py-4 font-medium">Company</th>
             <th className="px-6 py-4 font-medium">Status</th>
@@ -45,19 +45,19 @@ export default function LeadTable({ leads, onEdit, onDelete }) {
         </thead>
         <tbody className="divide-y divide-slate-100">
           {leads.map((lead) => (
-            <tr key={lead.id} className="hover:bg-slate-50 dark:hover:bg-gray-700 dark:bg-gray-900 transition-colors">
+            <tr key={lead.id} className="hover:bg-surface-hover dark:bg-background transition-colors">
               <td className="px-6 py-4">
-                <div className="font-semibold text-slate-800 dark:text-white">{lead.name}</div>
+                <div className="font-semibold text-text-main dark:text-white">{lead.name}</div>
               </td>
-              <td className="px-6 py-4 text-slate-600 dark:text-gray-300">{lead.company}</td>
+              <td className="px-6 py-4 text-text-muted">{lead.company}</td>
               <td className="px-6 py-4">
                 <StatusBadge status={lead.status} />
               </td>
-              <td className="px-6 py-4 text-slate-600 dark:text-gray-300 text-sm">
-                <a href={`mailto:${lead.email}`} className="hover:text-blue-600">{lead.email}</a>
+              <td className="px-6 py-4 text-text-muted text-sm">
+                <a href={`mailto:${lead.email}`} className="hover:text-primary">{lead.email}</a>
               </td>
-              <td className="px-6 py-4 text-slate-500 dark:text-gray-400 text-sm">{lead.source}</td>
-              <td className="px-6 py-4 text-slate-500 dark:text-gray-400 text-sm">
+              <td className="px-6 py-4 text-text-muted text-sm">{lead.source}</td>
+              <td className="px-6 py-4 text-text-muted text-sm">
                 {formatDate(lead.dateAdded || lead.createdAt)}
               </td>
               <td className="px-6 py-4 text-right">

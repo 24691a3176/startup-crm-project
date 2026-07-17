@@ -53,16 +53,16 @@ export default function QuickActions() {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-gray-700">
-      <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-4">
+    <div className="bg-surface p-6 rounded-xl shadow-sm border border-border">
+      <h3 className="text-lg font-bold text-text-main dark:text-white mb-4">
         Quick Actions
       </h3>
 
       <div className="flex flex-col gap-3">
         <button
           onClick={() => navigate("/leads/new")}
-          className="flex items-center w-full p-3 rounded-lg text-white transition-all duration-200 transform hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_0_15px_rgba(37,99,235,0.5)] cursor-pointer"
-          style={{ background: "linear-gradient(135deg, #2563EB, #3B82F6)" }}
+          className="flex items-center w-full p-3 rounded-lg text-white transition-all duration-200 transform hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_0_15px_rgba(114,195,138,0.5)] cursor-pointer"
+          style={{ background: "linear-gradient(135deg, #5A3AA3, #6B46C1)" }}
         >
           <PlusCircle size={20} className="mr-3" />
           <span className="font-medium">Add New Lead</span>
@@ -70,13 +70,13 @@ export default function QuickActions() {
 
         <button
           onClick={() => navigate("/leads")}
-          className={`flex items-center w-full p-3 rounded-lg border transition-all duration-300 ease-in-out transform cursor-pointer hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_0_15px_rgba(37,99,235,0.3)] ${
+          className={`flex items-center w-full p-3 rounded-lg border transition-all duration-300 ease-in-out transform cursor-pointer hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_0_15px_rgba(114,195,138,0.3)] ${
             isDarkMode
-              ? 'bg-slate-900 text-white border-slate-700 hover:bg-slate-800'
-              : 'bg-white text-gray-900 border-gray-200 hover:bg-gray-50'
+              ? 'bg-background text-white border-border hover:bg-surface-hover'
+              : 'bg-surface text-text-main border-border hover:bg-surface-hover'
           }`}
         >
-          <List size={20} className={`mr-3 ${isDarkMode ? 'text-slate-400' : 'text-gray-700'}`} />
+          <List size={20} className={`mr-3 ${isDarkMode ? 'text-text-subtle' : 'text-text-main'}`} />
           <span className="font-medium">View All Leads</span>
         </button>
 
@@ -85,17 +85,17 @@ export default function QuickActions() {
           disabled={!leads || leads.length === 0}
           className={`flex items-center w-full p-3 rounded-lg border transition-all duration-300 ease-in-out transform ${
             isDarkMode
-              ? 'bg-slate-900 text-white border-slate-700'
-              : 'bg-white text-gray-900 border-gray-200'
+              ? 'bg-background text-white border-border'
+              : 'bg-surface text-text-main border-border'
           } ${
             !leads || leads.length === 0
               ? 'opacity-50 cursor-not-allowed'
-              : `cursor-pointer hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_0_15px_rgba(37,99,235,0.3)] ${
-                  isDarkMode ? 'hover:bg-slate-800' : 'hover:bg-gray-50'
+              : `cursor-pointer hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_0_15px_rgba(114,195,138,0.3)] ${
+                  isDarkMode ? 'hover:bg-surface-hover' : 'hover:bg-surface-hover'
                 }`
           }`}
         >
-          <Download size={20} className={`mr-3 ${isDarkMode ? 'text-slate-400' : 'text-gray-700'}`} />
+          <Download size={20} className={`mr-3 ${isDarkMode ? 'text-text-subtle' : 'text-text-main'}`} />
           <span className="font-medium">Export Data</span>
         </button>
       </div>

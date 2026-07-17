@@ -17,8 +17,8 @@ const AnalyticsFilters = ({ activeFilter, onFilterChange }) => {
           onClick={() => onFilterChange(f.key)}
           className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
             activeFilter === f.key
-              ? 'bg-gradient-to-br from-[#3B82F6] to-[#2563EB] text-white shadow-md'
-              : 'bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm text-slate-600 dark:text-gray-300 border border-slate-200 dark:border-gray-700 hover:bg-slate-50 dark:hover:bg-gray-700 dark:bg-gray-900 hover:border-slate-300 dark:border-gray-600'
+              ? 'bg-gradient-to-br from-[#6B46C1] to-[#6B46C1] text-white shadow-md'
+              : 'bg-surface/70 dark:bg-surface/70 backdrop-blur-sm text-text-muted border border-border hover:bg-surface-hover dark:bg-background hover:border-border-focus'
           }`}
         >
           {f.label}

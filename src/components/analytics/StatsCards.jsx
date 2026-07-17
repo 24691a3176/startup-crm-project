@@ -7,21 +7,21 @@ const StatCard = memo(({ title, value, icon: Icon, trend, iconColor, iconBg, tre
     <motion.div 
       whileHover={{ y: -6 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className={`bg-white dark:bg-gray-800 rounded-[24px] border border-slate-100 dark:border-gray-700 shadow-[0_10px_40px_rgba(0,0,0,0.06)] flex flex-col justify-between relative overflow-hidden group`}
+      className={`bg-surface rounded-[24px] border border-border shadow-[0_10px_40px_rgba(0,0,0,0.06)] flex flex-col justify-between relative overflow-hidden group`}
     >
       <div className={`absolute inset-0 bg-gradient-to-br from-slate-50/0 to-slate-50/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none`}></div>
       
       <div className="p-6 relative z-10 flex flex-col h-full justify-between">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-sm font-semibold text-slate-500 dark:text-gray-400 uppercase tracking-wider">{title}</h3>
+          <h3 className="text-sm font-semibold text-text-muted uppercase tracking-wider">{title}</h3>
           <div className={`p-2.5 rounded-full`} style={{ backgroundColor: iconBg }}>
             <Icon className="w-5 h-5" style={{ color: iconColor }} />
           </div>
         </div>
         <div className="flex items-baseline justify-between">
-          <div className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">{value}</div>
+          <div className="text-3xl font-extrabold text-text-main tracking-tight">{value}</div>
           {trend !== undefined && trend !== null && (
-            <div className={`flex items-center text-sm font-bold ${trendColor || 'text-emerald-500'} bg-white dark:bg-gray-800 px-2 py-1 rounded-lg shadow-sm border border-slate-100 dark:border-gray-700`}>
+            <div className={`flex items-center text-sm font-bold ${trendColor || 'text-emerald-500'} bg-surface px-2 py-1 rounded-lg shadow-sm border border-border`}>
               {trend > 0 ? '+' : ''}{trend}%
               <TrendingUp className="w-3.5 h-3.5 ml-1" />
             </div>
@@ -43,7 +43,7 @@ const StatsCards = ({ metrics }) => {
         title="Total Leads"
         value={metrics?.totalLeads || 0}
         icon={Users}
-        iconColor="#2563EB"
+        iconColor="#6B46C1"
         iconBg="#DBEAFE"
       />
       <StatCard

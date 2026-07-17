@@ -13,7 +13,7 @@ const Register = React.lazy(() => import('../pages/Register'));
 const PageLoader = () => (
   <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-4">
     <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-    <p className="text-text-gray font-roboto text-sm animate-pulse">Loading CRM modules...</p>
+    <p className="text-text-muted font-roboto text-sm animate-pulse">Loading CRM modules...</p>
   </div>
 );
 
