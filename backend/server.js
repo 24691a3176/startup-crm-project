@@ -26,7 +26,7 @@ const app = express();
 const checkRequiredEnvVars = () => {
   const requiredEnvVars = ['MONGODB_URI', 'JWT_SECRET'];
   const missingVars = requiredEnvVars.filter(envVar => !process.env[envVar]);
-  
+
   if (missingVars.length > 0) {
     console.error(`[FATAL ERROR] Missing required environment variables: ${missingVars.join(', ')}`);
     process.exit(1);
@@ -59,7 +59,7 @@ const corsOptions = {
     "http://localhost:5174",
     "http://localhost:5175",
     "http://localhost:5176",
-    
+
     process.env.FRONTEND_URL
   ].filter(Boolean), // Remove undefined if FRONTEND_URL is not set
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
@@ -83,17 +83,17 @@ if (process.env.NODE_ENV === 'production') {
 const isDev = process.env.NODE_ENV !== 'production';
 
 // General rate limit: 100 requests per 15 minutes per IP
-const generalLimiter = rateLimit({ 
-  windowMs: 15 * 60 * 1000, 
-  max: 100, 
-  message: 'Too many requests, please try again later.' 
+const generalLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: 'Too many requests, please try again later.'
 });
 
 // Auth rate limit: stricter in production, relaxed in development
-const authLimiter = rateLimit({ 
-  windowMs: 15 * 60 * 1000, 
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
   max: isDev ? 100 : 15,
-  message: 'Too many auth attempts, please try again later.' 
+  message: 'Too many auth attempts, please try again later.'
 });
 
 app.use('/api/', generalLimiter);
@@ -259,3 +259,4 @@ const gracefulShutdown = (signal) => {
 
 process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
 process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+
